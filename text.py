@@ -8,7 +8,9 @@ import pyautogui
 
 pyautogui.FAILSAFE = False
 
-st.set_page_config(page_title="Aap ki Avaj", page_icon=":india:")
+st.markdown("<h1 style='color:red; background-color: lightcoral;text-align: center; color: black;'>Welcome to Aap ki Avaj!...</h1>", unsafe_allow_html=True)
+
+st.markdown(" ", unsafe_allow_html=True)
 
 st.title("Sign Language Recognition")
 
@@ -29,11 +31,46 @@ classifier = Classifier("Model/keras_model.h5", "Model/labels.txt")
 
 offset = 20
 imgSize = 300
-labels = ["A", "B", "C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","THANK U","HELLO"," "]
+labels = ["A", "B", "C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","THANK U","HELLO","Spider Man"," "]
+labels2 = ["Where is this address?",
+           "Where is the bus stop?",
+           "Can you recommend a good coffee shop?",
+           "Do you know where the nearest drugstore is?",
+           "Excuse me, could you tell me where the elevator is?",
+           "Can you help me find a good fish market?",
+           "Could you give me directions to the grocery store?",
+           "Can you recommend a good hotel nearby?",
+           "Is there a good Italian restaurant in the area?",
+           "Do you know where the nearest Japanese restaurant is?",
+           "Can you tell me where the nearest kindergarten is?",
+           "Where is the nearest library?",
+           "Can you recommend a good Mexican restaurant?",
+           "Do you know where the nearest newsstand is?",
+           "Where is the nearest office supply store?",
+           "Do you know where the nearest post office is?",
+           "Are there any good quality restaurants in the area?",
+           "Where is the nearest railway station?",
+           "Can you recommend a good seafood restaurant?",
+           "Where is the nearest taxi stand?",
+           "Do you know where the nearest university is?",
+           "Can you tell me where the nearest veterinarian is?",
+           "Where is the nearest wine shop?",
+           "I'm not sure what to ask for X, sorry!",
+           "Do you know where the nearest yoga studio is?",
+           "Can you recommend a good zoo in the area?",
+           "Thank you for your help",
+           "HELLO",
+           "Spider Man",
+           " "]
 
-
+sahil=1
 start_button = st.button("Start")
 stop_button = st.button("Stop")
+Refresh = st.button("Refresh")
+if Refresh:
+    sahil=1
+    start_button=True
+    Refresh=False
 
 while True:
     if start_button:
@@ -48,7 +85,6 @@ while True:
             if x - offset >= 0 and y - offset >= 0 and x + w + offset < img.shape[1] and y + h + offset < img.shape[0]:
                 imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
                 imgCrop = img[y - offset:y + h + offset, x - offset:x + w + offset]
-
 
                 imgCropShape = imgCrop.shape
 
@@ -85,6 +121,11 @@ while True:
                 cv2.rectangle(imgOutput, (x - offset, y - offset),
                               (x + w + offset, y + h + offset), (255, 255, 255), 4)
 
+                if sahil==1:
+                    new_text = labels2[index]
+                    text_input = st.text_area("",value=new_text)
+                    sahil=0
+
     if stop_button:
         # Break out of the loop
         break
@@ -107,7 +148,4 @@ st.header("What is Indian Sign Language?")
 st.write("Indian Sign Language (ISL) is the sign language used by millions of people in India who are deaf or hard-of-hearing. "
          "ISL has its own unique grammar and syntax, and uses a combination of hand gestures, facial expressions, and body "
          "language to convey meaning. Just like spoken languages, ISL also has regional variations and dialects.")
-
-# Create a streamlit text input for typing messages
-text_input = st.text_input("Type your message here")
 

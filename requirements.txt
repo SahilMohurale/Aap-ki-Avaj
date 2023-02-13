@@ -2,7 +2,6 @@ opencv-python
 streamlit
 cvzone
 numpy
-math
 pyautogui
 cvzone
 mediapipe
