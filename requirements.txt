@@ -1,0 +1,9 @@
+cv2
+streamlit
+cvzone
+numpy
+math
+pyautogui
+cvzone
+mediapipe
+tensorflow
